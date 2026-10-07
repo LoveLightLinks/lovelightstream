@@ -332,12 +332,29 @@ h1 {
 }
 
 </style>
+
+<style>
+.home-button {
+    display:inline-block;
+    padding:11px 24px;
+    border:1px solid #ff00cc;
+    border-radius:25px;
+    background:#222;
+    color:#fff;
+    text-decoration:none;
+    font-size:16px;
+    box-shadow:0 0 15px rgba(255,0,204,0.65);
+}
+.home-button:hover {
+    background:#ff00cc;
+    box-shadow:0 0 20px #ff00cc;
+}
+</style>
+
 </head>
-
 <body>
-
 <div class="header">
-    <img src="https://lovelightlinks.github.io/images/Icon.png" class="logo">
+    <a href="home.html"><img src="https://lovelightlinks.github.io/images/Icon.png" class="logo"></a>
     <h1>Love Light Stream</h1>
     <div class="age-badge">18+ Adults Only</div>
 
@@ -348,431 +365,33 @@ h1 {
     </div>
 </div>
 
-<h2 class="search-title">Premium Adult Directory</h2>
+<div style="max-width:600px;margin:35px auto;padding:10px 20px;">
 
-<div class="search-box">
-    <input type="text" id="search" placeholder="Search by Model ID or Username...">
+<div style="margin:20px 0;padding:18px;border-radius:20px;background:rgba(255,255,255,0.05);box-shadow:0 0 20px #ff00cc;">
+<h2 style="margin:0 0 10px;color:#fff;">❤️ Love Light Models</h2>
+<div id="homeModelsPreview" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"></div>
+<p style="font-size:14px;color:rgba(255,255,255,0.85);">Discover models, profiles, photos and social links.</p>
+<a href="model-hub.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Explore Love Light Models</a>
 </div>
 
-<!-- FEATURED PROFILE AREA (NEW — replaces popup later) -->
-<div id="profileSection" style="max-width:600px;margin:auto;padding:20px;"></div>
-
-<!-- MODEL GRID -->
-<div class="grid" id="modelGrid"></div>
-
-<button id="loadMoreBtn" onclick="loadMore()" class="load-more">
-    Next
-</button>
-
-<!-- LOVEHONEY -->
-<div id="lovehoneySection"></div>
-
-<!-- BLOG -->
-<div id="blogSection">
-    <h2 class="blog-title">From Our Blog</h2>
-    <div class="blog-grid" id="blogGrid"></div>
+<div style="margin:20px 0;padding:18px;border-radius:20px;background:rgba(255,255,255,0.05);box-shadow:0 0 20px #00ccff;">
+<h2 style="margin:0 0 10px;color:#fff;">🔥 Trending Buzz</h2>
+<div id="homeBuzzPreview" style="min-height:120px;border-radius:12px;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);">Latest trending content</div>
+<p style="font-size:14px;color:rgba(255,255,255,0.85);">Viral models, stories, links and the latest updates.</p>
+<a href="viral-hub.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Explore Trending Buzz</a>
 </div>
 
-<!-- OLD POPUP (kept for safety — will disable later) -->
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <div class="slider">
-            <button class="nav-btn left" onclick="prevSlide()">❮</button>
-            <div class="slides" id="slides"></div>
-            <button class="nav-btn right" onclick="nextSlide()">❯</button>
-        </div>
-        <h3 id="popupID"></h3>
-        <p id="popupDesc"></p>
-        <button id="visitBtn">Visit</button>
-        <button onclick="closePopup()">Close</button>
-    </div>
+<div style="margin:20px 0;padding:18px;border-radius:20px;background:rgba(255,255,255,0.05);box-shadow:0 0 20px #ff00cc;">
+<h2 style="margin:0 0 10px;color:#fff;">⭐ Know Them Well</h2>
+<div style="height:150px;border-radius:12px;background:linear-gradient(135deg,rgba(255,0,204,0.25),rgba(0,204,255,0.2));display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:bold;">Community Ratings</div>
+<p style="font-size:14px;color:rgba(255,255,255,0.85);">Search by platform and model ID, explore community ratings and share your experience.</p>
+<a href="rating-hub.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Search &amp; Rate</a>
 </div>
 
-<script>
-
-const sheetID = "1mLlHZt6MLsEV4Oq0m9_WQPex94v5JbY0pTgr9hL7PjY";
-const sheetURL = `https://opensheet.elk.sh/${sheetID}/Sheet1`;
-const linkHubURL = `https://opensheet.elk.sh/${sheetID}/LinkHub`;
-
-let models = [];
-let linkHubData = [];
-let shuffled = [];
-let pageIndex = 0;
-let firstLoadCount = 10;
-let nextLoadCount = 6;
-let currentSlide = 0;
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-Promise.all([
-    fetch(sheetURL).then(res=>res.json()),
-    fetch(linkHubURL).then(res=>res.json())
-]).then(([modelsData, hubData])=>{
-
-    models = modelsData;
-    linkHubData = hubData;
-
-    const params = new URLSearchParams(window.location.search);
-    const routeID = params.get("id");
-
-shuffled = [...models];
-shuffleArray(shuffled);
-loadPage();
-
-if(routeID){
-
-    let found = models.find(m =>
-        m.ID && m.ID.toLowerCase() === routeID.toLowerCase()
-    );
-
-    if(found){
-        loadProfile(found);
-    } else {
-
-        let hub = linkHubData.find(x =>
-            x.ID && x.ID.toLowerCase() === routeID.toLowerCase()
-        );
-
-        if(hub){
-            showExternalProfile(hub);
-        }
-    }
-}
-
-    shuffled = [...models];
-    shuffleArray(shuffled);
-    loadPage();
-
-});
-    
-function loadPage() {
-
-    const grid = document.getElementById("modelGrid");
-
-if(pageIndex === 0){
-    grid.innerHTML = "";
-}
-    let start, end;
-
-if(pageIndex === 0){
-    start = 0;
-    end = firstLoadCount;
-} else {
-    start = firstLoadCount + (pageIndex - 1) * nextLoadCount;
-    end = start + nextLoadCount;
-}
-
-    if(start >= shuffled.length){
-    shuffleArray(shuffled);
-    pageIndex = 0;
-
-    window.scrollTo({
-        top: document.getElementById("modelGrid").offsetTop - 40,
-        behavior: "smooth"
-    });
-
-    start = 0;
-    end = firstLoadCount;
-}
-
-    const slice = shuffled.slice(start,end);
-
-    slice.forEach(model => {
-
-    // Skip LINK HUB only entries (no image)
-    if(!model.Image1 || model.Image1.trim() === "") return;
-        const card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <img src="${getImagePath(model.Image1)}" loading="lazy">
-            <h3>Model ${model.ID}</h3>
-        `;
-
-        card.onclick = () => loadProfile(model);
-
-        grid.appendChild(card);
-    });
-
-}
-function loadMore(){
-    pageIndex++;
-    loadPage();
-}
-function getImagePath(img){
-    if(!img) return "";
-    if(img.startsWith("http")) return img;
-    return "https://lovelightlinks.github.io/images/" + img;
-}
-function loadProfile(model){
-    
-    history.pushState({}, "", "?id=" + model.ID);
-    const images = [
-    getImagePath(model.Image1),
-    getImagePath(model.Image2),
-    getImagePath(model.Image3),
-    getImagePath(model.Image4)
-].filter(Boolean);
-
-    const profile = document.getElementById("profileSection");
-
-    profile.innerHTML = `
-        <div class="slider">
-            <button class="nav-btn left" onclick="prevSlide()">❮</button>
-            <div class="slides" id="slides">
-                ${images.map(img=>`<img src="${img}">`).join("")}
-            </div>
-            <button class="nav-btn right" onclick="nextSlide()">❯</button>
-        </div>
-
-        <h3 style="margin-top:15px;">Model: ${model.ID}</h3>
-        <p>ID: ${model.Username || "—"}</p>
-
-        <p>${model.Name}</p>
-
-        <button onclick="window.open('${model.Link}','_blank')" 
-        style="margin-top:10px;padding:10px 20px;border:none;border-radius:25px;background:#ff00cc;color:white;">
-        Visit
-        </button>
-        <button onclick="goHome()" 
-style="margin-top:10px;padding:10px 20px;border:none;border-radius:25px;background:#ff00cc;color:white;">
-Home
-</button>
-    `;
-
-    currentSlide = 0;
-
-    window.scrollTo({top:profile.offsetTop-50,behavior:"smooth"});
-}
-
-function nextSlide(){
-    const slides = document.getElementById("slides");
-    if(!slides) return;
-
-    const total = slides.children.length;
-    currentSlide++;
-    if(currentSlide>=total) currentSlide=0;
-
-    slides.style.transform = `translateX(-${currentSlide*100}%)`;
-}
-
-function prevSlide(){
-    const slides = document.getElementById("slides");
-    if(!slides) return;
-
-    const total = slides.children.length;
-    currentSlide--;
-    if(currentSlide<0) currentSlide=total-1;
-
-    slides.style.transform = `translateX(-${currentSlide*100}%)`;
-  }
-document.getElementById("search").addEventListener("input", function(){
-
-    const value = this.value.toLowerCase().trim();
-
-    if(!value){
-        document.getElementById("profileSection").innerHTML = "";
-        return;
-    }
-
-    let found = models.find(m =>
-        (m.ID && m.ID.toLowerCase() === value) ||
-        (m.Username && m.Username.toLowerCase() === value)
-    );
-
-    if(found){
-        this.blur();
-        loadProfile(found);
-        return;
-    }
-
-    let hub = linkHubData.find(x =>
-        x.ID && x.ID.toLowerCase() === value
-    );
-
-    if(hub){
-        this.blur();
-        showExternalProfile(hub);
-        return;
-    }
-
-    document.getElementById("profileSection").innerHTML = `
-        <div style="padding:25px;opacity:0.8">
-            <h3>Nothing Found</h3>
-            <p>Try correct Model ID</p>
-        </div>
-    `;
-});
-
-function loadLoveHoney(){
-
-const lovehoneyURL = `https://opensheet.elk.sh/${sheetID}/Lovehoney`;
-
-fetch(lovehoneyURL)
-.then(res => res.json())
-.then(data => {
-
-    const section = document.createElement("div");
-    section.innerHTML = "<h2 style='margin-top:40px;'>Recommended For You</h2>";
-
-    const grid = document.createElement("div");
-    grid.style.display = "grid";
-    grid.style.gridTemplateColumns = "repeat(2,1fr)";
-    grid.style.gap = "15px";
-    grid.style.maxWidth = "600px";
-    grid.style.margin = "20px auto";
-
-    data.slice(0,4).forEach(item => {
-        const card = document.createElement("div");
-
-        card.innerHTML = `
-    <img src="${item.Image}" 
-         style="width:100%; border-radius:8px; cursor:pointer;"
-         onclick="window.open('${item.Link}','_blank')">
-
-    <p>${item.Title}</p>
-`;
-
-        grid.appendChild(card);
-    });
-
-    section.appendChild(grid);
-    document.getElementById("lovehoneySection").appendChild(section);
-
-});
-}
-
-loadLoveHoney();
-
-function showExternalProfile(hub){
-
-    history.pushState({}, "", "?id=" + hub.ID);
-
-    const profile = document.getElementById("profileSection");
-
-    if(!hub || !hub.Link){
-        profile.innerHTML = `
-            <div style="padding:30px;text-align:center">
-                <h2>Nothing Found</h2>
-                <button onclick="goHome()"
-                style="margin-top:20px;padding:12px 25px;
-                border:none;border-radius:30px;
-                background:linear-gradient(45deg,#ff00cc,#00ccff);
-                color:white;">
-                Home
-                </button>
-            </div>
-        `;
-        return;
-    }
-
-    profile.innerHTML = `
-<div style="
-    padding:25px;
-    text-align:center;
-    background:rgba(255,255,255,0.05);
-    border-radius:20px;
-    box-shadow:0 0 25px #ff00cc;
-    animation:fadeIn 0.4s ease;
-">
-
-    <h2 style="
-        font-size:26px;
-        margin-bottom:10px;
-        background:linear-gradient(45deg,#ff00cc,#00ccff);
-        -webkit-background-clip:text;
-        color:transparent;
-    ">
-        🔗 Link Found
-    </h2>
-
-    <p style="opacity:0.8;margin-bottom:15px">
-        ID: ${hub.ID}
-    </p>
-
-    <img src="https://lovelightlinks.github.io/images/Linkhub01.png"
-         style="width:100%;max-width:420px;border-radius:14px;margin-bottom:20px">
-
-    <button onclick="window.open('${hub.Link}','_blank')"
-        style="
-        padding:14px 28px;
-        border:none;
-        border-radius:30px;
-        font-size:16px;
-        background:linear-gradient(45deg,#ff00cc,#00ccff);
-        color:white;
-        box-shadow:0 0 20px #ff00cc;
-        ">
-        Open Link
-    </button>
-
-    <br><br>
-
-    <button onclick="goHome()"
-        style="
-        padding:12px 25px;
-        border:none;
-        border-radius:30px;
-        background:#222;
-        color:white;
-        ">
-        Home
-    </button>
-
 </div>
-`;
-}
-
-function goHome(){
-    history.pushState({}, "", window.location.pathname);
-    document.getElementById("profileSection").innerHTML = "";
-    
-    window.scrollTo({top:0,behavior:"smooth"});
-}
-    
-// BLOG
-function loadBlog(data) {
-
-    const entries = data.feed.entry.slice(0,3);
-    const blogGrid = document.getElementById("blogGrid");
-
-    entries.forEach(post => {
-
-        const title = post.title.$t;
-        const link = post.link.find(l => l.rel === "alternate").href;
-
-        let description = "";
-        if (post.summary) {
-            description = post.summary.$t.replace(/<[^>]*>?/gm, "").slice(0,120) + "...";
-        }
-
-        let image = "";
-        if (post.content) {
-            const imgMatch = post.content.$t.match(/<img[^>]+src="([^">]+)"/);
-            if (imgMatch) image = imgMatch[1];
-        }
-
-        const card = document.createElement("div");
-        card.className = "blog-card";
-
-        card.innerHTML = `
-            ${image ? `<img src="${image}">` : ""}
-            <h3>${title}</h3>
-            <p>${description}</p>
-            <a href="${link}" target="_blank">Read More →</a>
-        `;
-
-        blogGrid.appendChild(card);
-    });
-}
-
-</script>
-
-<script src="https://lovelightlinks.blogspot.com/feeds/posts/default?alt=json-in-script&callback=loadBlog"></script>
+<div style="text-align:center;margin:30px 0 10px;">
+    <a href="home.html" class="home-button">&lt;&lt;&lt; Home &gt;&gt;&gt;</a>
+</div>
 
 <footer style="margin-top:50px;padding:30px;text-align:center;">
     <p>© 2026 Love Light Stream. All rights reserved.</p>
