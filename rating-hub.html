@@ -2,1023 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Light Stream | Know Them Well</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spread the Love | Love Light Stream</title>
 <style>
-
-
-body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #2a003f, #000);
-    color:white;
-    text-align:center;
-}
-
-/* Header */
-.header {
-    padding:30px 20px 10px;
-}
-
-.logo {
-    width:140px;
-    display:block;
-    margin:0 auto;
-    animation: float 3s ease-in-out infinite,
-               glow 2s ease-in-out infinite alternate;
-}
-
-/* Slider */
-.slider {
-    width:100%;
-    height:70vh;
-    overflow:hidden;
-    border-radius:10px;
-    position:relative;
-    background:black;
-    display:flex;
-    align-items:center;
-}
-
-.slides {
-    display:flex;
-    transition:transform 0.4s ease;
-    align-items:center;
-}
-
-.slides img {
-    width:100%;
-    height:70vh;
-    object-fit:cover;
-    border-radius:10px;
-    flex-shrink:0;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes glow {
-    from { filter: drop-shadow(0 0 10px #ff00cc); }
-    to { filter: drop-shadow(0 0 25px #00ccff); }
-}
-
-h1 {
-    margin:10px 0 5px;
-}
-
-.tagline {
-    opacity:0.7;
-    font-size:14px;
-}
-
-/* Social Buttons */
-.social-links {
-    margin-top:15px;
-}
-
-.social-links a {
-    display:inline-block;
-    margin:5px 10px;
-    padding:8px 18px;
-    border-radius:25px;
-    text-decoration:none;
-    font-size:14px;
-    color:white;
-    border:1px solid #ff00cc;
-    transition:0.3s;
-}
-
-.social-links a:hover {
-    background:linear-gradient(45deg,#ff00cc,#00ccff);
-    box-shadow:0 0 15px #ff00cc;
-}
-
-/* Search */
-.search-box {
-    margin:20px auto;
-    width:90%;
-    max-width:400px;
-}
-
-.search-box input {
-    width:100%;
-    padding:12px;
-    border-radius:25px;
-    border:none;
-    outline:none;
-    background:#111;
-    color:white;
-    font-size:16px;
-}
-
-/* Model Grid */
-.grid {
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap:15px;
-    padding:20px;
-    max-width:600px;
-    margin:auto;
-}
-
-.card {
-    background:rgba(255,255,255,0.05);
-    padding:12px;
-    border-radius:15px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.card:hover {
-    transform:translateY(-5px);
-    box-shadow:0 0 20px #ff00cc;
-}
-
-.card img {
-    width:100%;
-    height:220px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.card h3 {
-    margin:10px 0 5px;
-    font-size:16px;
-}
-
-/* Popup */
-.popup {
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.9);
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    padding:15px;
-    box-sizing:border-box;
-}
-
-.popup-content {
-    width:90%;
-    max-width:400px;
-    background:#111;
-    padding:20px;
-    border-radius:15px;
-    box-sizing:border-box;
-    max-height:90vh;
-    overflow-y:auto;
-}
-
-.popup img {
-    width:100%;
-    border-radius:10px;
-}
-
-.popup h3 {
-    margin-top:15px;
-}
-
-.popup p {
-    font-size:14px;
-    opacity:0.8;
-}
-
-.popup button {
-    margin-top:15px;
-    padding:10px 20px;
-    border:none;
-    border-radius:25px;
-    background:#ff00cc;
-    color:white;
-    cursor:pointer;
-}
-
-.card {
-    user-select: none;
-}
-
-.card img {
-    pointer-events: none;
-}
-
-/* Slider Nav Buttons */
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-    opacity: 0.85;
-}
-
-.nav-btn.left { left: 15px; }
-.nav-btn.right { right: 15px; }
-
-.nav-btn:hover {
-    transform: translateY(-50%) scale(1.05);
-}
-
-/* Load More Button */
-.load-more {
-    margin: 20px auto 40px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(45deg,#ff00cc,#00ccff);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    display: block;
-}
-
-.load-more:hover { opacity: 0.85; }
-
-/* Age Badge */
-.age-badge {
-    display:inline-block;
-    margin-top:8px;
-    padding:5px 14px;
-    font-size:12px;
-    border-radius:20px;
-    background: rgba(255,0,204,0.15);
-    color:#ff00cc;
-    border:1px solid #ff00cc;
-    letter-spacing:1px;
-}
-
-/* Titles */
-.search-title {
-    margin-top: 35px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgba(255,255,255,0.85);
-}
-
-.blog-title {
-    margin: 50px 0 20px;
-    font-size: 22px;
-    font-weight: bold;
-    color: rgba(255,255,255,0.9);
-}
-
-/* Blog */
-.blog-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    max-width: 600px;
-    margin: auto;
-    padding: 0 20px;
-}
-
-.blog-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 15px;
-    padding: 15px;
-    text-align: left;
-}
-
-.blog-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.blog-card h3 {
-    font-size: 16px;
-    margin-bottom: 8px;
-}
-
-.blog-card p {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.blog-card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #ff00cc;
-    text-decoration: none;
-}
-
-
-.home-button {
-    display:inline-block;
-    padding:11px 24px;
-    border:1px solid #ff00cc;
-    border-radius:25px;
-    background:#222;
-    color:#fff;
-    text-decoration:none;
-    font-size:16px;
-    box-shadow:0 0 15px rgba(255,0,204,0.65);
-}
-.home-button:hover {
-    background:#ff00cc;
-    box-shadow:0 0 20px #ff00cc;
-}
-
-.rating-page {
-    width:100%;
-    max-width:600px;
-    margin:auto;
-    padding:20px;
-}
-
-.rating-intro {
-    margin:25px 0;
-}
-
-.rating-intro h2 {
-    font-size:22px;
-    margin-bottom:8px;
-}
-
-.rating-intro p {
-    color:rgba(255,255,255,.7);
-    font-size:14px;
-    line-height:1.5;
-}
-
-.platform-section {
-    display:grid;
-    gap:12px;
-    margin:25px 0;
-}
-
-.platform-button {
-    width:100%;
-    padding:14px;
-    border:1px solid #ff00cc;
-    border-radius:30px;
-    background:#222;
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-}
-
-.platform-button.active,
-.platform-button:hover {
-    background:linear-gradient(45deg,#ff00cc,#00ccff);
-}
-
-.search-panel {
-    display:none;
-    margin:20px 0;
-    padding:18px;
-    background:rgba(255,255,255,.05);
-    border-radius:15px;
-}
-
-.search-panel h3 {
-    margin-top:0;
-}
-
-.search-row {
-    display:flex;
-    gap:10px;
-}
-
-.search-row input {
-    flex:1;
-    min-width:0;
-    padding:12px 15px;
-    border:1px solid rgba(255,0,204,.5);
-    border-radius:25px;
-    background:#111;
-    color:#fff;
-    font-size:16px;
-    outline:none;
-}
-
-.search-row button {
-    padding:12px 20px;
-    border:0;
-    border-radius:25px;
-    background:#ff00cc;
-    color:#fff;
-    cursor:pointer;
-}
-
-.model-result {
-    display:none;
-    margin-top:25px;
-}
-
-.model-hero {
-    position:relative;
-    min-height:390px;
-    border-radius:20px;
-    overflow:hidden;
-    background:
-        linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.95)),
-        url("images/Icon.png") center/cover no-repeat;
-    box-shadow:0 0 25px #ff00cc;
-    display:flex;
-    align-items:flex-end;
-    text-align:left;
-}
-
-.model-overlay {
-    width:100%;
-    padding:25px 20px 20px;
-    background:linear-gradient(transparent,rgba(0,0,0,.95));
-}
-
-.result-platform {
-    color:#ff00cc;
-    font-size:13px;
-    font-weight:bold;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.model-overlay h2 {
-    margin:6px 0;
-    font-size:24px;
-}
-
-.result-id {
-    color:rgba(255,255,255,.7);
-    font-size:14px;
-}
-
-.rating-card {
-    width:100%;
-    margin-top:15px;
-    padding:16px;
-    border:0;
-    border-radius:15px;
-    color:#fff;
-    font-size:20px;
-    font-weight:bold;
-    background:#888;
-}
-
-.rating-card.high {
-    background:#18e35b;
-}
-
-.rating-card.medium {
-    background:#72b77a;
-}
-
-.rating-card.low {
-    background:#a1a7a3;
-}
-
-.rating-card.none {
-    background:#666;
-}
-
-.experiences {
-    margin-top:35px;
-}
-
-.experiences h3,
-.latest-ratings h2 {
-    color:rgba(255,255,255,.9);
-}
-
-.empty-experience {
-    padding:18px;
-    border-radius:15px;
-    background:rgba(255,255,255,.05);
-    color:rgba(255,255,255,.65);
-}
-
-.rate-button {
-    width:100%;
-    margin-top:15px;
-    padding:13px;
-    border:1px solid #ff00cc;
-    border-radius:30px;
-    background:linear-gradient(45deg,#ff00cc,#00ccff);
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-}
-
-.latest-ratings {
-    margin-top:45px;
-}
-
-.rating-gallery {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.rating-tab {
-    overflow:hidden;
-    padding:0;
-    border:1px solid rgba(255,0,204,.3);
-    border-radius:15px;
-    background:rgba(255,255,255,.05);
-    color:#fff;
-    text-align:left;
-    cursor:pointer;
-}
-
-.rating-tab:hover {
-    box-shadow:0 0 15px #ff00cc;
-    transform:translateY(-2px);
-}
-
-.rating-tab img {
-    width:100%;
-    height:145px;
-    object-fit:cover;
-    display:block;
-}
-
-.rating-tab-info {
-    padding:10px;
-}
-
-.rating-tab-platform {
-    color:#ff00cc;
-    font-size:11px;
-    font-weight:bold;
-    text-transform:uppercase;
-}
-
-.rating-tab-name {
-    margin:4px 0;
-    font-size:15px;
-    font-weight:bold;
-}
-
-.rating-tab-id {
-    color:rgba(255,255,255,.6);
-    font-size:12px;
-}
-
-.rating-tab-score {
-    margin-top:7px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.no-ratings {
-    display:none;
-    padding:20px;
-    color:rgba(255,255,255,.65);
-}
-
-@media(max-width:420px) {
-    .rating-gallery {
-        gap:8px;
-    }
-
-    .rating-tab img {
-        height:125px;
-    }
-
-    .search-row {
-        flex-direction:column;
-    }
-
-    .search-row button {
-        width:100%;
-    }
-}
-.rating-page {
-    width:100%;
-    max-width:600px;
-    margin:0 auto;
-    padding:20px;
-    box-sizing:border-box;
-    overflow:hidden;
-}
-
-.rating-page * {
-    box-sizing:border-box;
-}
-.suggestion-panel { display:none;
-    margin-top:35px;
-    padding:20px;
-    border-radius:15px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,0,204,.25);
-}
-.suggestion-panel h3 {
-    margin:0 0 18px;
-    text-align:center;
-    color:#ff00cc;
-    font-size:20px;
-}
-.suggestion-panel input,
-.suggestion-panel textarea {
-    width:100%;
-    box-sizing:border-box;
-    margin-bottom:12px;
-    padding:12px 15px;
-    border:1px solid rgba(255,0,204,.35);
-    border-radius:15px;
-    background:#111;
-    color:#fff;
-    font:16px Arial;
-}
-.suggestion-panel textarea {
-    min-height:90px;
-    resize:vertical;
-}
-
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#2a003f,#000);color:#fff;font-family:Arial,sans-serif;text-align:center}
+header{padding:25px 15px 10px}
+.logo{width:110px;max-width:40%;filter:drop-shadow(0 0 12px #ff00cc)}
+h1{margin:10px 0 5px}
+a{color:#ff75df}
+.social a{display:inline-block;margin:8px;padding:9px 15px;border:1px solid #ff00cc;border-radius:25px;text-decoration:none}
+main{width:92%;max-width:560px;margin:20px auto 50px}
+.card{background:rgba(255,255,255,.06);border:1px solid #632052;border-radius:18px;padding:22px;margin:18px 0}
+h2{color:#ff75df}
+.muted{color:#c8b8c8;line-height:1.5}
+.stars{display:flex;justify-content:center;gap:8px;margin:18px 0}
+.star{font-size:38px;color:#777;background:none;border:0;padding:0;cursor:pointer}
+.star.selected{color:#ffc83d}
+label{display:block;text-align:left;margin:15px 0 7px}
+input,textarea{width:100%;padding:13px;border-radius:10px;border:1px solid #75416a;background:#111;color:white;font:16px Arial}
+textarea{min-height:120px;resize:vertical}
+button.submit{width:100%;margin-top:16px;padding:14px;border:0;border-radius:25px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;font-size:16px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+#status{line-height:1.5;color:#ffd1f4}
+footer{padding:20px;color:#b8a6b8;font-size:12px}
 </style>
+</head>
 <body>
-<div class="header">
-    <img src="https://lovelightlinks.github.io/images/Icon.png" class="logo">
-    <h1>Love Light Stream</h1>
-    <div class="age-badge">18+ Adults Only</div>
-    <div class="social-links">
-        <a href="https://www.instagram.com/love_light_stream" target="_blank">Instagram</a>
-        <a href="https://x.com/LoveLightStream" target="_blank">X</a>
-        <a href="https://t.me/lovelightlinks" target="_blank">Telegram</a>
-    </div>
+<header>
+<img class="logo" src="https://lovelightlinks.github.io/images/Icon.png" alt="Love Light Stream">
+<h1>Love Light Stream</h1>
+<div>18+ Adults Only</div>
+<div class="social">
+<a href="https://www.instagram.com/love_light_stream" target="_blank" rel="noopener">Instagram</a>
+<a href="https://x.com/LoveLightStream" target="_blank" rel="noopener">X</a>
+<a href="https://t.me/lovelightlinks" target="_blank" rel="noopener">Telegram</a>
 </div>
-<div class="rating-page">
+</header>
 
-    <section class="rating-intro">
-        <h2>Know Them Well</h2>
-        <p>
-            Search a model by platform and ID,
-            discover community ratings and experiences.
-        </p>
-    <section class="platform-section">
-        <button class="platform-button" onclick="selectPlatform('eLive', this)">eLive</button>
-        <button class="platform-button" onclick="selectPlatform('Tango', this)">Tango</button>
-        <button class="platform-button" onclick="suggestApp()">Suggest an App</button>
-    </section>
+<main>
+<section class="card">
+<h2>Spread the Love ❤️</h2>
+<p class="muted">Share your favourite models, studios, platforms and feedback!</p>
+<p class="muted">Enjoying Love Light Stream? Tell us what you think.</p>
+</section>
 
-    <section id="searchPanel" class="search-panel">
-        <h3 id="searchTitle">Search Model</h3>
-        <div class="search-row">
-            <input id="modelIdInput" type="text" placeholder="Enter Model ID">
-            <button onclick="searchModel()">Search</button>
-        </div>
-    </section>
-
-    <section id="modelResult" class="model-result">
-        <div class="model-hero" id="modelHero">
-            <div class="model-overlay">
-                <div id="resultPlatform" class="result-platform"></div>
-                <h2 id="resultName">Model Name</h2>
-                <div id="resultId" class="result-id">ID: 0000</div>
-            </div>
-        </div>
-
-        <button id="ratingCard" class="rating-card">
-            ⭐ No rating yet
-        </button>
-
-        <section class="experiences">
-            <h3>Community Experiences</h3>
-            <div id="experienceList">
-                <div class="empty-experience">
-                    No community experiences yet.
-                </div>
-            </div>
-
-            <button class="rate-button" onclick="startRating()">
-                Rate This Model
-            </button>
-        </section>
-    </section>
-
-    <section id="suggestionPanel" class="suggestion-panel">
-        <h3>Suggest an App</h3>
-        <input id="suggestAppName" type="text" placeholder="App Name">
-        <textarea id="suggestAppNote" placeholder="Why should we add it?"></textarea>
-        <button class="rate-button" onclick="submitAppSuggestion()">Submit Suggestion</button>
-    </section>
-
-    <section class="latest-ratings">
-        <h2>⭐ Last Month's Super Stars</h2>
-        <div id="superStarsGallery" class="rating-gallery"></div>
-        <div id="noSuperStars" class="no-ratings">No super stars yet.</div>
-    </section>
-
-    <section class="latest-ratings">
-        <h2>🔥 Recent Ratings</h2>
-        <div id="ratingGallery" class="rating-gallery"></div>
-        <div id="noRatings" class="no-ratings">No recent ratings yet.</div>
-    </section>
-
+<section class="card">
+<h2>Rate Our Website</h2>
+<p class="muted">Choose from 1 to 5 stars.</p>
+<div class="stars" role="group" aria-label="Website rating">
+<button class="star" type="button" data-rating="1" aria-label="1 star">★</button>
+<button class="star" type="button" data-rating="2" aria-label="2 stars">★</button>
+<button class="star" type="button" data-rating="3" aria-label="3 stars">★</button>
+<button class="star" type="button" data-rating="4" aria-label="4 stars">★</button>
+<button class="star" type="button" data-rating="5" aria-label="5 stars">★</button>
 </div>
+<form id="feedbackForm">
+<label for="displayName">Display name (optional)</label>
+<input id="displayName" maxlength="40" placeholder="Your name or nickname">
+<label for="comment">Your feedback (optional)</label>
+<textarea id="comment" maxlength="1000" placeholder="Share your thoughts or suggestions..."></textarea>
+<button class="submit" id="submitButton" type="submit">Submit Feedback</button>
+</form>
+<p id="status" aria-live="polite"></p>
+</section>
 
-<div style="text-align:center;margin:30px 0 10px;">
-    <a href="home.html" class="home-button">&lt;&lt;&lt; Home &gt;&gt;&gt;</a>
-</div>
-
-<footer style="margin-top:50px;padding:30px;text-align:center;">
-    <p style="color:rgba(255,255,255,.65);font-size:14px;">
-        Love Light Stream © 2026
-    </p>
-    <p style="color:rgba(255,255,255,.5);font-size:12px;">
-        18+ Adults Only. Community ratings are personal experiences
-        and should not be treated as verified facts.
-    </p>
-</footer>
+<section class="card">
+<h2>Thank You! 💜</h2>
+<p class="muted">Your feedback helps us improve Love Light Stream.</p>
+</section>
+</main>
+<footer>Love Light Stream · Please keep feedback respectful.</footer>
 
 <script>
-let selectedPlatform = "";
-let profileImages = [];
-fetch("images/rating-hub/profile-pool/manifest.json")
-    .then(function(response) { return response.json(); })
-    .then(function(images) { profileImages = images; })
-    .catch(function() { profileImages = []; });
+(function(){
+const storageKey="lls_feedback_submitted_v1";
+let rating=0;
+const stars=document.querySelectorAll(".star");
+const form=document.getElementById("feedbackForm");
+const status=document.getElementById("status");
+const submitButton=document.getElementById("submitButton");
 
-function getRandomProfileImage() {
-    if (!profileImages.length) return "images/Icon.png";
-    return "images/rating-hub/profile-pool/" + profileImages[Math.floor(Math.random() * profileImages.length)];
-}
-function getPlatformLogo(platform) {
-    const name = String(platform || "").trim().toLowerCase();
-    if (name === "elive") return "images/rating-hub/platforms/elive.webp";
-    if (name === "tango") return "images/rating-hub/platforms/tango.webp";
-    return "images/Icon.png";
+function updateStars(){
+stars.forEach(function(star){
+const selected=Number(star.dataset.rating)<=rating;
+star.classList.toggle("selected",selected);
+star.setAttribute("aria-pressed",String(Number(star.dataset.rating)===rating));
+});
 }
 
-const latestRatings = [
-    {
-        platform:"eLive",
-        id:"1234",
-        name:"Sample Model 1",
-        rating:4.8,
-        date:"2026-08-05"
-    },
-    {
-        platform:"Tango",
-        id:"5678",
-        name:"Sample Model 2",
-        rating:4.2,
-        date:"2026-07-20"
-    },
-    {
-        platform:"eLive",
-        id:"2468",
-        name:"Sample Model 3",
-        rating:3.5,
-        date:"2026-08-25"
-    }
-];
+stars.forEach(function(star){
+star.addEventListener("click",function(){
+if(localStorage.getItem(storageKey))return;
+rating=Number(star.dataset.rating);
+updateStars();
+});
+});
 
-function selectPlatform(platform, button) {
-
-    selectedPlatform = platform;
-
-    document.querySelectorAll(".platform-button")
-        .forEach(function(btn) {
-            btn.classList.remove("active");
-        });
-
-    button.classList.add("active");
-
-    document.getElementById("searchPanel").style.display = "block";
-
-    document.getElementById("searchTitle").textContent =
-        "Search " + platform + " Model";
-
-    document.getElementById("modelIdInput").value = "";
-    document.getElementById("modelIdInput").focus();
-
-    document.getElementById("modelResult").style.display = "none";
+if(localStorage.getItem(storageKey)){
+status.textContent="You have already submitted feedback from this browser.";
+submitButton.disabled=true;
+stars.forEach(function(star){star.disabled=true;});
+form.querySelectorAll("input,textarea").forEach(function(field){field.disabled=true;});
 }
 
-function searchModel() {
-
-    const id = document.getElementById("modelIdInput")
-        .value.trim();
-
-    if (!id || !selectedPlatform) return;
-
-    const existing = latestRatings.find(function(model) {
-        return model.platform.toLowerCase() === selectedPlatform.toLowerCase()
-            && model.id.toLowerCase() === id.toLowerCase();
-    });
-
-    if (existing) {
-        showModel(existing);
-    } else {
-        showModel({
-            platform:selectedPlatform,
-            id:id,
-            name:"Model " + id,
-            rating:0
-        });
-    }
+form.addEventListener("submit",function(event){
+event.preventDefault();
+if(localStorage.getItem(storageKey)){
+status.textContent="Feedback has already been submitted from this browser.";
+return;
 }
-
-function showModel(model) {
-
-    document.getElementById("resultPlatform").textContent =
-        model.platform;
-
-    document.getElementById("resultName").textContent =
-        model.name;
-
-    document.getElementById("resultId").textContent =
-        "ID: " + model.id;
-
-    document.getElementById("modelHero").style.backgroundImage =
-        "linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.95)), url('" + getRandomProfileImage() + "')";
-    setRating(model.rating);
-
-    document.getElementById("modelResult").style.display =
-        "block";
-
-    document.getElementById("modelResult").scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
+if(rating<1){
+status.textContent="Please select a star rating first.";
+return;
 }
-
-function setRating(score) {
-
-    const card = document.getElementById("ratingCard");
-
-    card.classList.remove("high","medium","low","none");
-
-    if (!score || score <= 0) {
-        card.classList.add("none");
-        card.textContent = "⭐ No rating yet";
-        return;
-    }
-
-    if (score >= 4) {
-        card.classList.add("high");
-    } else if (score >= 3) {
-        card.classList.add("medium");
-    } else {
-        card.classList.add("low");
-    }
-
-    card.textContent =
-        "⭐ " + score.toFixed(1) + " / 5";
+const feedback={
+rating:rating,
+name:document.getElementById("displayName").value.trim(),
+comment:document.getElementById("comment").value.trim(),
+date:new Date().toISOString()
+};
+try{
+localStorage.setItem(storageKey,JSON.stringify(feedback));
+status.textContent="Thank you! Your feedback is saved in this browser.";
+submitButton.disabled=true;
+stars.forEach(function(star){star.disabled=true;});
+form.querySelectorAll("input,textarea").forEach(function(field){field.disabled=true;});
+}catch(error){
+status.textContent="Your browser could not save this feedback. Please check browser storage settings.";
 }
-
-function suggestApp() {
-    document.getElementById("searchPanel").style.display = "none";
-    document.getElementById("modelResult").style.display = "none";
-    document.getElementById("suggestionPanel").style.display = "block";
-    document.getElementById("suggestAppName").value = "";
-    document.getElementById("suggestAppNote").value = "";
-    document.getElementById("suggestionPanel").scrollIntoView({ behavior:"smooth", block:"start" });
-    document.getElementById("suggestAppName").focus();
-}
-
-
-function submitAppSuggestion() {
-    const appName = document.getElementById("suggestAppName").value.trim();
-    const suggestion = document.getElementById("suggestAppNote").value.trim();
-
-    if (!appName) {
-        alert("Please enter the app name.");
-        return;
-    }
-
-    const button = document.querySelector("#suggestionPanel .rate-button");
-    button.disabled = true;
-    button.textContent = "Sending...";
-
-    fetch("https://script.google.com/macros/s/AKfycbyLQ80RyNIUVy6bbk48YjjPAErlu33brQOxd4XXDJznwBlrXipedgkN3Ert6_ya70np/exec", {
-        method: "POST",
-        headers: {"Content-Type":"text/plain;charset=utf-8"},
-        body: JSON.stringify({appName:appName, suggestion:suggestion})
-    })
-    .then(function() {
-        alert("Thank you! Your app suggestion has been submitted.");
-        document.getElementById("suggestAppName").value = "";
-        document.getElementById("suggestAppNote").value = "";
-    })
-    .catch(function() {
-        alert("Sorry, something went wrong. Please try again.");
-    })
-    .finally(function() {
-        button.disabled = false;
-        button.textContent = "Submit Suggestion";
-    });
-}
-
-
-function startRating() {
-
-    alert(
-        "The rating and verification system will be connected after the visual design is approved."
-    );
-}
-
-function createRatingCard(model) {
-    const card = document.createElement("button");
-    card.className = "rating-tab";
-
-    card.innerHTML = `
-        <img src="${getPlatformLogo(model.platform)}" alt="${model.platform}">
-        <div class="rating-tab-info">
-            <div class="rating-tab-platform">${model.platform}</div>
-            <div class="rating-tab-name">${model.name}</div>
-            <div class="rating-tab-id">ID: ${model.id}</div>
-            <div class="rating-tab-score">⭐ ${model.rating.toFixed(1)} / 5</div>
-        </div>
-    `;
-
-    card.addEventListener("click", function() {
-        selectedPlatform = model.platform;
-        showModel(model);
-    });
-
-    return card;
-}
-
-function sortRatings(a, b) {
-    const scoreDifference = Number(b.rating) - Number(a.rating);
-
-    if (scoreDifference !== 0) {
-        return scoreDifference;
-    }
-
-    return new Date(b.date) - new Date(a.date);
-}
-
-function renderRatingDiscovery() {
-    const superStarsGallery =
-        document.getElementById("superStarsGallery");
-
-    const recentGallery =
-        document.getElementById("ratingGallery");
-
-    const noSuperStars =
-        document.getElementById("noSuperStars");
-
-    const noRatings =
-        document.getElementById("noRatings");
-
-    const now = new Date();
-    const thirtyDaysAgo =
-        new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    const sixtyDaysAgo =
-        new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
-
-    const validRatings = latestRatings.filter(function(model) {
-        return Number(model.rating) >= 3 &&
-               model.date &&
-               new Date(model.date) <= now;
-    });
-
-    const superStars = validRatings
-        .filter(function(model) {
-            const date = new Date(model.date);
-            return date >= sixtyDaysAgo && date < thirtyDaysAgo;
-        })
-        .sort(sortRatings);
-
-    const recentRatings = validRatings
-        .filter(function(model) {
-            const date = new Date(model.date);
-            return date >= thirtyDaysAgo && date <= now;
-        })
-        .sort(sortRatings);
-
-    superStarsGallery.innerHTML = "";
-    recentGallery.innerHTML = "";
-
-    superStars.forEach(function(model) {
-        superStarsGallery.appendChild(createRatingCard(model));
-    });
-
-    recentRatings.forEach(function(model) {
-        recentGallery.appendChild(createRatingCard(model));
-    });
-
-    noSuperStars.style.display =
-        superStars.length ? "none" : "block";
-
-    noRatings.style.display =
-        recentRatings.length ? "none" : "block";
-}
-
-renderRatingDiscovery();
+});
+})();
 </script>
 </body>
 </html>
