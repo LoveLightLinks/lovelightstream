@@ -369,7 +369,7 @@ h1 {
 
 <div style="margin:20px 0;padding:18px;border-radius:20px;background:rgba(255,255,255,0.05);box-shadow:0 0 20px #ff00cc;">
 <h2 style="margin:0 0 10px;color:#fff;">❤️ Love Light Models</h2>
-<div id="homeModelsPreview" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"></div>
+<div id="homeModelsPreview" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;"></div>
 <p style="font-size:14px;color:rgba(255,255,255,0.85);">Discover models, profiles, photos and social links.</p>
 <a href="model-hub.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Explore Love Light Models</a>
 </div>
@@ -382,13 +382,28 @@ h1 {
 </div>
 
 <div style="margin:20px 0;padding:18px;border-radius:20px;background:rgba(255,255,255,0.05);box-shadow:0 0 20px #ff00cc;">
-<h2 style="margin:0 0 10px;color:#fff;">⭐ Know Them Well</h2>
-<div style="height:150px;border-radius:12px;background:linear-gradient(135deg,rgba(255,0,204,0.25),rgba(0,204,255,0.2));display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:bold;">Community Ratings</div>
-<p style="font-size:14px;color:rgba(255,255,255,0.85);">Search by platform and model ID, explore community ratings and share your experience.</p>
-<a href="rating-hub.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Search &amp; Rate</a>
+<h2 style="margin:0 0 14px;color:#fff;">🔥 Become a Model</h2>
+<img src="https://raw.githubusercontent.com/LoveLightLinks/LoveLightLinks.github.io/refs/heads/main/images/file_00000000e7e882079a4fddbc26a46cbe.png" alt="Adult modeling platform promotional image" loading="lazy" style="display:block;width:100%;height:220px;object-fit:cover;object-position:center 35%;border-radius:12px;background:#111;">
+<p style="font-size:14px;color:rgba(255,255,255,0.85);">Explore adult modeling platforms and discover where your journey begins.</p>
+<a href="become-model.html" style="display:block;padding:12px;border-radius:30px;background:linear-gradient(45deg,#ff00cc,#00ccff);color:white;text-decoration:none;font-weight:bold;">Explore Platforms →</a>
 </div>
 
 </div>
+<a href="https://t.me/lovelightstreamdiscussion" target="_blank" rel="noopener noreferrer" style="display:block;box-sizing:border-box;width:calc(100% - 40px);max-width:560px;margin:20px auto;padding:2px;border-radius:22px;background:linear-gradient(135deg,#ff00cc,#00ccff,#8a2be2);box-shadow:0 0 22px rgba(0,204,255,.35);text-decoration:none;color:white;">
+<div style="padding:22px 18px;border-radius:20px;background:linear-gradient(145deg,#170b24,#101426);text-align:center;">
+<div style="font-size:30px;margin-bottom:8px;">❤️</div>
+<h2 style="margin:0 0 8px;color:#fff;">Spread the Love</h2>
+<p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#ddd;">Your voice makes our community better.</p>
+<div style="padding:17px;border-radius:16px;background:linear-gradient(135deg,rgba(255,0,204,.13),rgba(0,204,255,.13));border:1px solid rgba(255,255,255,.12);">
+<div style="font-size:28px;margin-bottom:8px;">💬</div>
+<h3 style="margin:0 0 8px;color:#fff;">Let's Talk!</h3>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#d9c5e4;">Have suggestions, feedback or something interesting to share? Join our Telegram discussion and let your voice be heard.</p>
+</div>
+<div style="display:block;margin:20px auto 8px;padding:14px;border-radius:30px;background:#229ED9;color:white;font-weight:bold;">✈️ Join the Discussion →</div>
+<p style="margin:0;font-size:11px;color:#aaa;">Connect • Share • Discuss</p>
+</div>
+</a>
+
 <div style="text-align:center;margin:30px 0 10px;">
     <a href="home.html" class="home-button">&lt;&lt;&lt; Home &gt;&gt;&gt;</a>
 </div>
@@ -404,6 +419,128 @@ h1 {
         </a>
     </p>
 </footer>
+
+
+<!-- HOME PREVIEWS SCRIPT -->
+<script>
+(() => {
+    const sheet = "https://docs.google.com/spreadsheets/d/1CAkjWcpnt3Inb887WthMt6Y6M02Lbe-1Kz1w2l_t14Q/gviz/tq";
+    const modelsBox = document.getElementById("homeModelsPreview");
+    const buzzBox = document.getElementById("homeBuzzPreview");
+
+    const esc = v => String(v || "").replace(/[&<>"']/g, c =>
+        ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+
+    async function getManifest() {
+        try {
+            const r = await fetch("media-manifest.json");
+            if (!r.ok) throw Error();
+            return await r.json();
+        } catch (_) {
+            return {};
+        }
+    }
+
+    function getSheet(tab, callbackName) {
+        return new Promise((resolve, reject) => {
+            const cb = "__llsPreview" + callbackName;
+            const script = document.createElement("script");
+            const timeout = setTimeout(() => finish(null, true), 15000);
+
+            function finish(data, failed) {
+                clearTimeout(timeout);
+                delete window[cb];
+                script.remove();
+                failed ? reject(Error("Sheet load failed")) : resolve(data);
+            }
+
+            window[cb] = data => finish(data, false);
+            script.onerror = () => finish(null, true);
+            script.src = sheet + "?sheet=" + encodeURIComponent(tab) +
+                "&tqx=" + encodeURIComponent("responseHandler:" + cb);
+            document.body.appendChild(script);
+        });
+    }
+
+    function modelImage(id, files) {
+        return "images/models/" + encodeURIComponent(id) + "/" +
+            encodeURIComponent(files[0]);
+    }
+
+    async function init() {
+        const manifest = await getManifest();
+
+        getSheet("Models", "Models").then(data => {
+            if (!data || data.status !== "ok") throw Error();
+            const rows = data.table.rows.slice(1);
+            const list = rows.map(row => {
+                const c = row.c || [];
+                return {name:c[0]?.v || c[3]?.v || "Model", id:String(c[3]?.v || "")};
+            }).filter(m => m.id && manifest[m.id]?.length);
+
+            list.sort(() => Math.random() - 0.5);
+            const chosen = list.slice(0, 6);
+            if (!chosen.length) throw Error();
+
+            modelsBox.innerHTML = chosen.map(m => `
+                <a href="model-hub.html#model-${encodeURIComponent(m.id)}"
+                   style="min-width:0;color:white;text-decoration:none;">
+                    <img src="${esc(modelImage(m.id,manifest[m.id]))}"
+                         alt="${esc(m.name)}" loading="lazy"
+                         style="width:100%;height:160px;object-fit:cover;border-radius:10px;background:#111;">
+                    <div style="font-size:12px;margin-top:5px;overflow-wrap:anywhere;">${esc(m.name)}</div>
+                </a>`).join("");
+        }).catch(() => {
+            modelsBox.innerHTML = '<p style="grid-column:1/-1;font-size:13px;">Model previews are temporarily unavailable.</p>';
+        });
+
+        getSheet("Buzz", "Buzz").then(data => {
+            if (!data || !data.table || !data.table.rows) throw Error();
+
+            const posts = data.table.rows.slice(1).map(row => {
+                const c = row.c || [];
+                return {
+                    title:c[0]?.v || "",
+                    media:String(c[4]?.v || ""),
+                    id:c[6]?.v || ""
+                };
+            }).filter(p => p.title.trim()).reverse();
+
+            const chosen = posts.map(p => {
+                const match = p.media.match(/\/images\/models\/([^/]+)\/?$/);
+                if (!match) return null;
+                let id = match[1];
+                try { id = decodeURIComponent(id); } catch (_) {}
+                if (!manifest[id]?.length) return null;
+                return {...p, image:modelImage(id,manifest[id])};
+            }).filter(Boolean).slice(0, 6);
+
+            if (!chosen.length) {
+                buzzBox.textContent = "New trending content is coming soon.";
+                return;
+            }
+
+            buzzBox.style.display = "grid";
+            buzzBox.style.gridTemplateColumns = "repeat(2,minmax(0,1fr))";
+            buzzBox.style.gap = "8px";
+            buzzBox.style.padding = "8px";
+            buzzBox.style.alignItems = "start";
+
+            buzzBox.innerHTML = chosen.map(p => `
+                <a href="viral-hub.html" style="min-width:0;color:white;text-decoration:none;">
+                    <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy"
+                         style="width:100%;height:145px;object-fit:cover;border-radius:9px;background:#111;">
+                    <div style="font-size:12px;text-align:left;margin-top:5px;overflow-wrap:anywhere;">${esc(p.title)}</div>
+                </a>`).join("");
+        }).catch(() => {
+            buzzBox.textContent = "Trending previews are temporarily unavailable.";
+        });
+    }
+
+    init();
+})();
+</script>
+<!-- END HOME PREVIEWS SCRIPT -->
 
 </body>
 </html>
